@@ -30,4 +30,13 @@
 
 	}
 
-});
+}
+(function( $, window, document, undefined ) {
+	"use strict";
+	console.log('Inside grid main function');
+
+	$.fn.KADgrid = function (opts) {
+			return opts;
+		};
+	return $.fn.kadgrid = $.fn.KADgrid;
+}));
