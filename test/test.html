@@ -1,0 +1,185 @@
+<!DOCTYPE html>  
+<html>  
+  
+<head>  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />  
+  <title>Drop Down Test</title>  
+  <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">  
+  <link rel="stylesheet" href="http://js.arcgis.com/3.13/dojo/resources/dojo.css">  
+  <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+
+  <script type="text/javascript">
+    // var dojoConfig = {
+    //     paths: { scripts: location.pathname.replace(/\/[^/]+$/, "") + "/../src" }
+    // };
+</script>
+<!-- <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script> -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js"></script>
+
+  <!-- <script src="http://js.arcgis.com/3.26/"></script>   -->
+
+  <style>  
+    html,  
+    body,  
+    #mainWindow {  
+      height: 100%;  
+      width: 100%;  
+      margin: 0;  
+      padding: 0;  
+    }  
+    body {  
+      background-color: #FFF;  
+      overflow: hidden;  
+      font-family: "Trebuchet MS";  
+    }  
+    #header {  
+      height: 3%;  
+      overflow: auto;  
+    }  
+  </style>  
+  
+  <script>
+
+  require(['loader'], function() {
+    //console.log('Inside custom module loader');
+  });
+
+    // var map;  
+    // require([  
+    //   "esri/map",  
+    //   "dojo/on",  
+    //   "esri/tasks/query",  
+    //   "esri/layers/FeatureLayer",  
+    //   "dojo/store/Memory",  
+    //   "dojo/_base/array",  
+    //   "dojo/_base/lang",  
+    //   "esri/request",  
+    //   "dojo/json",  
+    //   "dojo/parser",
+    //   "scripts/kadgrid",  
+    //   "dijit/layout/BorderContainer",  
+    //   "dijit/layout/ContentPane",  
+    //   "dijit/form/Button",  
+    //   "dijit/form/ComboBox",  
+    //   "dojo/domReady!"  
+    // ], function(  
+    //   Map, on, Query, FeatureLayer, Memory, array, lang, esriRequest, json, parser, kadgrid  
+    // ) {  
+    //   parser.parse();  
+    //   map = new Map("map", {  
+    //     basemap: "topo",  
+    //     center: [-98.1883, 37.0868],  
+    //     zoom: 5  
+    //   });  
+  
+    //   esriRequest({  
+    //     url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3/query?where=1%3D1&outFields=STATE_NAME&returnGeometry=false&orderByFields=STATE_NAME&returnDistinctValues=true&f=json',  
+    //     content:{  
+    //       f:'json'  
+    //     },  
+    //     handleAs:'json',  
+    //     callbackParamName:'callback',  
+    //     timeout:15000  
+    //   }).then(lang.hitch(this,function(response){  
+    //     var store2 = new Memory({data:[]});  
+    //     dijit.byId("stateSelect").set('store',store2);  
+    //     var data = array.map(response.features,lang.hitch(this,function(feat, index){  
+    //       var name = feat.attributes.STATE_NAME;  
+    //       var value = feat.attributes.STATE_NAME;  
+    //       var dataItem = {  
+    //         id:index,  
+    //         name:name,  
+    //         value:value  
+    //       };  
+    //       return dataItem;  
+    //     }));  
+    //     store2 = new Memory({data:data});  
+    //     dijit.byId("stateSelect").set('store',store2);  
+    //   }));  
+  
+    //   var States = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3", {  
+    //     mode: FeatureLayer.MODE_SELECTION,  
+    //     outFields: ["*"]  
+    //   });  
+  
+    //   var Counties = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2", {  
+    //     mode: FeatureLayer.MODE_SELECTION,  
+    //     outFields: ["*"]  
+    //   });  
+  
+    //   map.addLayers([States,Counties]);  
+  
+    //   app = {  
+    //     zoomRow: function(id, which){  
+    //       States.clearSelection();  
+    //       Counties.clearSelection();  
+    //       var query = new Query();  
+    //       var thePoly, theExtent;  
+    //       if(which == "State"){  
+    //         query.where = "STATE_NAME='" + (id).toString() + "'";  
+    //         console.info(query.where);  
+    //         query.returnGeometry = true;  
+    //         States.selectFeatures(query, FeatureLayer.SELECTION_NEW, function (features) {  
+    //           thePoly = features[0].geometry;  
+    //           theExtent = thePoly.getExtent().expand(2); //Zoom out slightly from the polygon's extent  
+    //           map.setExtent(theExtent);  
+    //         });  
+    //         esriRequest({  
+    //           url: "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2/query?where=STATE_NAME='" + id.toString() + "'&outFields=NAME&returnGeometry=false&orderByFields=NAME&returnDistinctValues=true&f=json",  
+    //           content:{  
+    //             f:'json'  
+    //           },  
+    //           handleAs:'json',  
+    //           callbackParamName:'callback',  
+    //           timeout:15000  
+    //         }).then(lang.hitch(this,function(response){  
+    //           var store2 = new Memory({data:[]});  
+    //           dijit.byId("countySelect").set('store',store2);  
+    //           var data = array.map(response.features,lang.hitch(this,function(feat, index){  
+    //             var name = feat.attributes.NAME;  
+    //             var dataItem = {  
+    //               id:index,  
+    //               name:name  
+    //             };  
+    //             return dataItem;  
+    //           }));  
+    //           store2 = new Memory({data:data});  
+    //           dijit.byId("countySelect").set('store',store2);  
+    //           document.getElementById('countySelect').value = "Select County";  
+    //         }));  
+    //       }else if(which == "County"){  
+    //         var county = (id).toString();  
+    //         county = county.replace(" County", "");  
+    //         query.where = "NAME='" + county + "'";  
+    //         console.info(query.where);  
+    //         query.returnGeometry = true;  
+    //         Counties.selectFeatures(query, FeatureLayer.SELECTION_NEW, function (features) {  
+    //           thePoly = features[0].geometry;  
+    //           theExtent = thePoly.getExtent().expand(2); //Zoom out slightly from the polygon's extent  
+    //           map.setExtent(theExtent);  
+    //         });  
+    //       }  
+    //     }  
+    //   };  
+  
+    // });  
+  </script>
+</head>  
+  
+<body class="claro">  
+  <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false" style="padding:0px;margin:0px;">  
+    <div id="header" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" style="overflow:hidden;border:none;border-bottom: 3px solid #CC9900;font-family: Windows;font-size:14pt; color: #FFFFFF;background: #000000; "> Select a State/County and zoom to it on the map:  
+      <input id="stateSelect" data-dojo-type="dijit/form/ComboBox" value="Select State" onchange="app.zoomRow(document.getElementById('stateSelect').value, 'State');" data-dojo-props="maxHeight: 200" />  
+      <input id="countySelect" data-dojo-type="dijit/form/ComboBox" value="Select County" onchange="app.zoomRow(document.getElementById('countySelect').value, 'County');" />  
+      <input type="hidden" name="stateabbr" id="stateabbr" />  
+    </div>  
+    <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" style="width:100%;height:95%;border:none;padding:0px;margin:0px;"></div>  
+  </div>  
+</body>  
+  
+</html>  
